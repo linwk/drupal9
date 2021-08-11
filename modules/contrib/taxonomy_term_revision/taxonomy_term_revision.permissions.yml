@@ -1,0 +1,8 @@
+view term revision list:
+  title: 'View list of taxonomy term revisions'
+delete term revision:
+  title: 'Delete taxonomy term revision'
+revert term revision:
+  title: 'Revert taxonomy term revision'
+view term revision data:
+  title: 'View taxonomy term revision data'

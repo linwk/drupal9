@@ -1,0 +1,45 @@
+my_group.index:
+  path: '/my_group'
+  defaults:
+    _controller:  '\Drupal\my_group\Controller\MyGroupController::index'
+    _title: 'Group api'
+  methods: [GET]
+  requirements:
+    _permission: 'access content'
+
+my_group.create:
+  path: '/my_group/create'
+  defaults:
+    _controller:  '\Drupal\my_group\Controller\MyGroupController::createGroup'
+    _title: 'Group api'
+  methods: [POST]
+  requirements:
+    _permission: 'access content'
+
+my_group.edit:
+  path: '/my_group/{id}/edit'
+  defaults:
+    _controller:  '\Drupal\my_group\Controller\MyGroupController::editGroup'
+    _title: 'Group api'
+  methods: [POST]
+  requirements:
+    _permission: 'access content'
+
+
+my_group.delete:
+  path: '/my_group/{id}/delete'
+  defaults:
+    _controller:  '\Drupal\my_group\Controller\MyGroupController::deleteGroup'
+    _title: 'Group api'
+  methods: [POST]
+  requirements:
+    _permission: 'access content'
+
+my_group.userList:
+  path: '/myUser'
+  defaults:
+    _controller:  '\Drupal\my_group\Controller\MyGroupController::userList'
+    _title: 'Group api'
+  methods: [GET]
+  requirements:
+    _permission: 'access content'

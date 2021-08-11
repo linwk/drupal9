@@ -1,0 +1,7 @@
+services:
+  my_group.service:
+    class: Drupal\my_group\Service\MyGroupService
+    arguments: ['@logger.factory', '@entity_type.manager','@config.factory','@language_manager']
+  my_group.service2:
+    class: Drupal\my_group\Service\TestService
+    arguments: ['@entity_type.manager']

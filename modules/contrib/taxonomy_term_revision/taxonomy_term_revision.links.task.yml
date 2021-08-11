@@ -1,0 +1,4 @@
+entity.taxonomy_term.revisions:
+  title: 'Revisions'
+  route_name: taxonomy_term_revision.all
+  base_route: entity.taxonomy_term.canonical

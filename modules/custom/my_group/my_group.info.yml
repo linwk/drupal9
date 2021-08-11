@@ -1,0 +1,5 @@
+name: MyGroup
+description: MyGroupTraning.
+type: module
+package: test
+core_version_requirement: ^8.8.0 || ^9

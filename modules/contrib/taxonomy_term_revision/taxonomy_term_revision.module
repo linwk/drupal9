@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Taxonomy Term Revision module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\taxonomy\TermInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ *
+ * {@inheritdoc}
+ */
+function taxonomy_term_revision_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  // Display the revision_log_message field.
+  if ($entity_type->id() == 'taxonomy_term' && isset($fields['revision_log_message'])) {
+    $fields['revision_log_message']
+      ->setLabel(t('Revision log message'))
+      ->setDescription(t('Describe the changes you have made.'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue('')
+      ->setDisplayOptions('form', [
+        'type' => 'string_textarea',
+        'weight' => 25,
+        'settings' => ['rows' => 4],
+      ]);
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * {@inheritdoc}
+ */
+function taxonomy_term_revision_entity_presave(EntityInterface $entity) {
+  // Saving new revision of term on each save.
+  if ($entity instanceof TermInterface) {
+    $entity->setNewRevision(TRUE);
+    $entity->setRevisionUserId(\Drupal::currentUser()->id());
+    $entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ *
+ * {@inheritdoc}
+ */
+function taxonomy_term_revision_entity_type_alter(array &$entity_types) {
+  /* @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+
+  // Moderation is disabled in core, enabling workflow for Taxonomy.
+  $entity_types['taxonomy_term']->setHandlerClass('moderation', 'Drupal\content_moderation\Entity\Handler\ModerationHandler');
+}
+
+/**
+ * Implements hook_help().
+ *
+ * {@inheritdoc}
+ */
+function taxonomy_term_revision_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.taxonomy_term_revision':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module allows user to create revisions for a taxonomy term. Also, you can view all the created revisions in tabular format, view the contents of a particular revision, delete a revision and revert to a previous revision.') . '</p>';
+
+      return $output;
+  }
+}

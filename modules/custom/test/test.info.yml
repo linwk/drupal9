@@ -1,0 +1,5 @@
+name: Test
+description: test.
+type: module
+package: test
+core_version_requirement: ^8.8.0 || ^9

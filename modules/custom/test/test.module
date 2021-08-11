@@ -1,0 +1,27 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\BubbleableMetadata;
+
+/**
+ * Implements hook_contextual_links_alter
+ */
+function test_contextual_links_alter(array &$links, $group, array $route_parameters){
+//  dd($links);
+}
+
+function test_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata)
+{
+//  dd($tokens);
+}
+function test_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+//  dd($form);
+}
+
+if (isset($form['field_attachment_manifest'])) {
+  $form['field_attachment_manifest']['widget'][0]['#description'] = t(str_replace('。', '', $form['field_attachment_manifest']['widget'][0]['#description']));
+}
+
+if (isset($form['field_df_files'])) {
+  $form['field_df_files']['widget'][0]['#description'] = t(str_replace('。', '', $form['field_df_files']['widget'][0]['#description']));
+}
